@@ -23,14 +23,14 @@ def check_none_value(var):
         return var
     
 
-def get_network_interfaces(net_client, sub, vnet):
+def get_network_interfaces(net_client, rg, vnet):
     if not (net_client or sub or vnet):
         print("ERROR: net_client, sub, and/or vnet not specified")
         return None
     
     netif_table = PrettyTable()
     netif_table.field_names = ["Name", "Private IP", "Public IP", "Type", "Provisioning Status"]
-    for netif in net_client.network_interfaces.list(resource_group_name="textron-rg"):
+    for netif in net_client.network_interfaces.list(resource_group_name=rg):
         if not netif.virtual_machine:
             vm = "PLS or PE"
         else:
