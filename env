@@ -1,0 +1,5 @@
+# Replace these values with your specific configuration
+
+AZ_SUBSCRIPTION_ID="<your subscription id>"
+AZ_RESOURCE_GROUP="<your azure resource group name>"
+AZ_VNET_NAME="<your azure vnet name>"
