@@ -24,7 +24,7 @@ def check_none_value(var):
     
 
 def get_network_interfaces(net_client, rg, vnet):
-    if not (net_client or sub or vnet):
+    if not (net_client or rg or vnet):
         print("ERROR: net_client, sub, and/or vnet not specified")
         return None
     
