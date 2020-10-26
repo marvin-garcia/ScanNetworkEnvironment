@@ -16,16 +16,32 @@ def get_environ_variables():
         return os.environ['AZ_SUBSCRIPTION_ID'], os.environ['AZ_RESOURCE_GROUP'], os.environ['AZ_VNET_NAME']
 
 
+def check_none_value(var):
+    if not var:
+        return "None"
+    else:
+        return var
+    
+
 def get_network_interfaces(net_client, sub, vnet):
     if not (net_client or sub or vnet):
         print("ERROR: net_client, sub, and/or vnet not specified")
         return None
     
     netif_table = PrettyTable()
-    netif_table.field_names = ["Name", "IP", "Provisioning Status"]
+    netif_table.field_names = ["Name", "Private IP", "Public IP", "Type", "Provisioning Status"]
     for netif in net_client.network_interfaces.list(resource_group_name="textron-rg"):
+        if not netif.virtual_machine:
+            vm = "PLS or PE"
+        else:
+            vm = f"VM({netif.virtual_machine.id.split('/')[-1]})"
         for ipconfig in netif.ip_configurations:
-            netif_table.add_row([netif.name, ipconfig.private_ip_address, netif.provisioning_state])
+            netif_table.add_row([
+                netif.name, 
+                check_none_value(ipconfig.private_ip_address), 
+                check_none_value(ipconfig.public_ip_address),
+                vm,
+                netif.provisioning_state])
     print(netif_table)
     return True
 

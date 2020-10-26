@@ -1,5 +1,6 @@
-# Replace these values with your specific configuration
+# Replace these values with your specific configuration and rename as .env
+# source .env before running net_scan.py
 
-AZ_SUBSCRIPTION_ID="<your subscription id>"
-AZ_RESOURCE_GROUP="<your azure resource group name>"
-AZ_VNET_NAME="<your azure vnet name>"
+export AZ_SUBSCRIPTION_ID="<your subscription id>"
+export AZ_RESOURCE_GROUP="<your azure resource group name>"
+export AZ_VNET_NAME="<your azure vnet name>"
